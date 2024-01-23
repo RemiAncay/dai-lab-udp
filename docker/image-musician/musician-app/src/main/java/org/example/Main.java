@@ -6,9 +6,7 @@ import java.net.DatagramPacket;
 import java.net.InetSocketAddress;
 import static java.nio.charset.StandardCharsets.*;
 
-class MulticastSender {
-
-
+class Main {
     public static void main(String[] args) {
         if(args.length != 1)
             throw new IllegalArgumentException("not enough or too many parameters");

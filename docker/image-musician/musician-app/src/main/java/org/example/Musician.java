@@ -1,5 +1,7 @@
 package org.example;
 
+import com.google.gson.Gson;
+
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -22,7 +24,7 @@ public class Musician {
 
         String message = generateSoundDatagram();
         byte[] payload = message.getBytes(UTF_8);
-        InetSocketAddress dest_address = new InetSocketAddress(IPADDRESS, 44444);
+        InetSocketAddress dest_address = new InetSocketAddress(IPADDRESS, PORT);
         this.soundDatagram = new DatagramPacket(payload, payload.length, dest_address);;
     }
 
@@ -48,6 +50,10 @@ public class Musician {
     }
 
     private String generateSoundDatagram() {
-        return "{\"uuid\":\""+uuid.toString()+"\", \"sound\":\""+generateSound()+"\"}";
+        SoundDatagram datagram = new SoundDatagram(uuid, generateSound());
+
+        return new Gson().toJson(datagram);
+
+        //return "{\"uuid\":\""+uuid.toString()+"\", \"sound\":\""+generateSound()+"\"}";
     }
 }
